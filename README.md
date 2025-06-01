@@ -21,8 +21,7 @@ npm run build
 copy .env.example .env
 php artisan key:generate
 php artisan storage:link
-php artisan migrate
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ## How to Run
