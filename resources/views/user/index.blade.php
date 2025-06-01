@@ -12,6 +12,25 @@
             <p>Selamat datang, {{ Auth::check() ? Auth::user()->name : 'Pengunjung' }}!</p>
         </div>
 
+        {{-- Pilih Kategori --}}
+        <div class="max-w-4xl mx-auto mt-6 mb-6">
+            <form method="GET" action="{{ route('user') }}" class="flex flex-wrap gap-2 items-center">
+                {{-- Pertahankan filter pencarian dan harga --}}
+                <input type="hidden" name="q" value="{{ request('q') }}">
+                <input type="hidden" name="min_price" value="{{ request('min_price') }}">
+                <input type="hidden" name="max_price" value="{{ request('max_price') }}">
+                <input type="hidden" name="sort" value="{{ request('sort') }}">
+                <label class="font-semibold mr-2">Kategori:</label>
+
+                <select name="category" onchange="this.form.submit()" class="border rounded px-3 py-2">
+                    <option value="gaming" {{ (request('category', $category ?? 'gaming') == 'gaming') ? 'selected' : '' }}>Gaming</option>
+                    <option value="desain" {{ (request('category', $category ?? '') == 'desain') ? 'selected' : '' }}>Desain</option>
+                    <option value="school" {{ (request('category', $category ?? '') == 'school') ? 'selected' : '' }}>School</option>
+                    <option value="office" {{ (request('category', $category ?? '') == 'office') ? 'selected' : '' }}>Office</option>
+                </select>
+            </form>
+        </div>
+
         {{-- Daftar Laptop --}}
         <div class="max-w-4xl mx-auto mt-10">
             <div class="flex justify-between items-center mb-6">

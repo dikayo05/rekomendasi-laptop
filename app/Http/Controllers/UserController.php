@@ -40,36 +40,138 @@ class UserController extends Controller
             $query->orderBy('name', 'desc');
         }
 
+        // Ambil kategori dari request, default 'gaming'
+        $category = request('category', 'gaming');
+
+        // Definisikan bobot dan cost/benefit untuk tiap kategori
+        $sawConfig = [
+            'gaming' => [
+                'weights' => [
+                    'price' => 0.15,           // cost
+                    'ram' => 0.15,             // benefit
+                    'cpu_benchmark' => 0.2,    // benefit
+                    'gpu_benchmark' => 0.2,    // benefit
+                    'battery_size' => 0.1,     // benefit
+                    'screen_size' => 0.05,     // benefit
+                    'refresh_rate' => 0.05,    // benefit
+                    'internal_storage' => 0.05,// benefit
+                    'weight' => 0.05,          // cost
+                ],
+                'criteria' => [
+                    'price' => 'cost',
+                    'ram' => 'benefit',
+                    'cpu_benchmark' => 'benefit',
+                    'gpu_benchmark' => 'benefit',
+                    'battery_size' => 'benefit',
+                    'screen_size' => 'benefit',
+                    'refresh_rate' => 'benefit',
+                    'internal_storage' => 'benefit',
+                    'weight' => 'cost',
+                ]
+            ],
+            'desain' => [
+                'weights' => [
+                    'price' => 0.15,           // cost
+                    'ram' => 0.15,             // benefit
+                    'cpu_benchmark' => 0.15,   // benefit
+                    'gpu_benchmark' => 0.1,    // benefit
+                    'screen_size' => 0.1,      // benefit
+                    'display_type' => 0.1,     // benefit (IPS/OLED lebih baik)
+                    'resolution' => 0.1,       // benefit
+                    'brightness' => 0.05,      // benefit
+                    'weight' => 0.1,           // cost
+                ],
+                'criteria' => [
+                    'price' => 'cost',
+                    'ram' => 'benefit',
+                    'cpu_benchmark' => 'benefit',
+                    'gpu_benchmark' => 'benefit',
+                    'screen_size' => 'benefit',
+                    'display_type' => 'benefit',
+                    'resolution' => 'benefit',
+                    'brightness' => 'benefit',
+                    'weight' => 'cost',
+                ]
+            ],
+            'school' => [
+                'weights' => [
+                    'price' => 0.25,           // cost
+                    'ram' => 0.15,             // benefit
+                    'battery_size' => 0.15,    // benefit
+                    'weight' => 0.15,          // cost (lebih ringan lebih baik)
+                    'screen_size' => 0.1,      // benefit
+                    'cpu_benchmark' => 0.1,    // benefit
+                    'internal_storage' => 0.1, // benefit
+                ],
+                'criteria' => [
+                    'price' => 'cost',
+                    'ram' => 'benefit',
+                    'battery_size' => 'benefit',
+                    'weight' => 'cost',
+                    'screen_size' => 'benefit',
+                    'cpu_benchmark' => 'benefit',
+                    'internal_storage' => 'benefit',
+                ]
+            ],
+            'office' => [
+                'weights' => [
+                    'price' => 0.2,            // cost
+                    'ram' => 0.15,             // benefit
+                    'cpu_benchmark' => 0.15,   // benefit
+                    'battery_size' => 0.15,    // benefit
+                    'weight' => 0.1,           // cost
+                    'screen_size' => 0.1,      // benefit
+                    'internal_storage' => 0.15,// benefit
+                    'thickness' => 0.05,       // cost
+                ],
+                'criteria' => [
+                    'price' => 'cost',
+                    'ram' => 'benefit',
+                    'cpu_benchmark' => 'benefit',
+                    'battery_size' => 'benefit',
+                    'weight' => 'cost',
+                    'screen_size' => 'benefit',
+                    'internal_storage' => 'benefit',
+                    'thickness' => 'cost',
+                ]
+            ],
+        ];
+
+        // Pilih config sesuai kategori, default ke gaming jika tidak ada
+        $weights = $sawConfig[$category]['weights'] ?? $sawConfig['gaming']['weights'];
+        $criteria = $sawConfig[$category]['criteria'] ?? $sawConfig['gaming']['criteria'];
+
         // Ambil semua data untuk proses SAW
         $allLaptops = $query->get();
-
-        // Kriteria dan bobot (bisa Anda sesuaikan)
-        $weights = [
-            'price' => 0.3,           // cost
-            'ram' => 0.2,             // benefit
-            'cpu_benchmark' => 0.3,   // benefit
-            'battery_size' => 0.2,    // benefit
-        ];
-        $criteria = [
-            'price' => 'cost',
-            'ram' => 'benefit',
-            'cpu_benchmark' => 'benefit',
-            'battery_size' => 'benefit',
-        ];
 
         // Normalisasi
         $max = [];
         $min = [];
         foreach ($weights as $key => $w) {
-            $max[$key] = $allLaptops->max($key);
-            $min[$key] = $allLaptops->min($key);
+            // Untuk display_type, konversi ke angka (IPS/OLED = 2, lain = 1)
+            if ($key === 'display_type') {
+                $max[$key] = $allLaptops->map(function($l) {
+                    return (strtolower($l->display_type) == 'ips' || strtolower($l->display_type) == 'oled') ? 2 : 1;
+                })->max();
+                $min[$key] = $allLaptops->map(function($l) {
+                    return (strtolower($l->display_type) == 'ips' || strtolower($l->display_type) == 'oled') ? 2 : 1;
+                })->min();
+            } else {
+                $max[$key] = $allLaptops->max($key);
+                $min[$key] = $allLaptops->min($key);
+            }
         }
 
         // Hitung skor SAW
         foreach ($allLaptops as $laptop) {
             $score = 0;
             foreach ($weights as $key => $w) {
-                $value = $laptop->$key ?? 0;
+                // Untuk display_type, konversi ke angka
+                if ($key === 'display_type') {
+                    $value = (strtolower($laptop->display_type) == 'ips' || strtolower($laptop->display_type) == 'oled') ? 2 : 1;
+                } else {
+                    $value = $laptop->$key ?? 0;
+                }
                 if ($criteria[$key] == 'benefit') {
                     $norm = $max[$key] > 0 ? $value / $max[$key] : 0;
                 } else { // cost
@@ -100,7 +202,7 @@ class UserController extends Controller
             return view('admin.index', compact('laptops'));
         }
 
-        return view('user.index', compact('laptops'));
+        return view('user.index', compact('laptops', 'category'));
     }
 
     public function show($id)
