@@ -11,51 +11,53 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('laptops')) {
-            Schema::create('laptops', function (Blueprint $table) {
-                $table->id();
-                $table->string('image')->nullable();
-                $table->string('name');
-                $table->string('brand');
-                $table->integer('price')->nullable();
-
-                // desain
-                $table->string('type')->nullable();
-                $table->integer('weight')->nullable();
-                $table->integer('thickness')->nullable();
-
-                // display
-                $table->integer('screen_size')->nullable();
-                $table->integer('screen_width')->nullable();
-                $table->integer('screen_height')->nullable();
-                $table->string('resolution')->nullable();
-                $table->integer('pixel_density')->nullable();
-                $table->string('display_type')->nullable();
-                $table->integer('brightness')->nullable();
-                $table->integer('refresh_rate')->nullable();
-
-                // performance
-                $table->string('cpu')->nullable();
-                $table->integer('cpu_speed')->nullable();
-                $table->integer('cpu_thread')->nullable();
-                $table->string('gpu')->nullable();
-                $table->integer('ram')->nullable();
-                $table->integer('ram_speed')->nullable();
-                $table->integer('vram')->nullable();
-                $table->string('storage_type')->nullable();
-                $table->integer('internal_storage')->nullable();
-
-                // benchmark
-                $table->integer('cpu_benchmark')->nullable();
-                $table->integer('cpu_benchmark_multithread')->nullable();
-                $table->integer('gpu_benchmark')->nullable();
-
-                // battery
-                $table->integer('battery_size')->nullable();
-
-                $table->timestamps();
-            });
+        if (Schema::hasTable('laptops')) {
+            return; // Jika tabel sudah ada, tidak perlu membuat ulang
         }
+        
+        Schema::create('laptops', function (Blueprint $table) {
+            $table->id();
+            $table->string('image')->nullable();
+            $table->string('name');
+            $table->string('brand');
+            $table->integer('price')->nullable();
+
+            // desain
+            $table->string('type')->nullable();
+            $table->integer('weight')->nullable();
+            $table->integer('thickness')->nullable();
+
+            // display
+            $table->integer('screen_size')->nullable();
+            $table->integer('screen_width')->nullable();
+            $table->integer('screen_height')->nullable();
+            $table->string('resolution')->nullable();
+            $table->integer('pixel_density')->nullable();
+            $table->string('display_type')->nullable();
+            $table->integer('brightness')->nullable();
+            $table->integer('refresh_rate')->nullable();
+            
+            // performance
+            $table->string('cpu')->nullable();
+            $table->integer('cpu_speed')->nullable();
+            $table->integer('cpu_thread')->nullable();
+            $table->string('gpu')->nullable();
+            $table->integer('ram')->nullable();
+            $table->integer('ram_speed')->nullable();
+            $table->integer('vram')->nullable();
+            $table->string('storage_type')->nullable();
+            $table->integer('internal_storage')->nullable();
+
+            // benchmark
+            $table->integer('cpu_benchmark')->nullable();
+            $table->integer('cpu_benchmark_multithread')->nullable();
+            $table->integer('gpu_benchmark')->nullable();
+
+            // battery
+            $table->integer('battery_size')->nullable();
+
+            $table->timestamps();
+        });
     }
 
     /**
