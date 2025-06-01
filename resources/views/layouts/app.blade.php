@@ -15,6 +15,7 @@
     <nav class="bg-white shadow mb-6">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="{{ route('user') }}" class="text-xl font-bold text-blue-600">Rekomendasi Laptop</a>
+            <a href="{{ route('about') }}" class="text-black px-3">About</a>
             <div>
                 @auth
                     <span class="mr-4 text-gray-700">Halo, {{ Auth::user()->name }}</span>
@@ -27,8 +28,8 @@
                     <a href="{{ route('login') }}" class="text-blue-500 px-3">Login</a>
                     <a href="{{ route('register') }}" class="text-blue-500 px-3">Register</a>
                 @endguest
-                <a href="{{ route('about') }}" class="text-black px-3">About</a>
             </div>
+            
         </div>
     </nav>
     <div class="container mx-auto flex">
