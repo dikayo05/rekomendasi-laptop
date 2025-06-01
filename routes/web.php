@@ -24,8 +24,20 @@ Route::get('/', [UserController::class, 'index'])->name('user');
 // Route ke halaman about
 Route::view('/about', 'about')->name('about');
 
+// Route ke halaman detail laptop (user & guest)
 Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
-Route::resource('laptop', LaptopController::class);
+
+// Hanya admin yang bisa akses create, edit, update, destroy laptop
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.create');
+    Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
+    Route::get('/laptop/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptop.edit');
+    Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
+    Route::delete('/laptop/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
+});
+
+// Route resource hanya untuk index & show (akses umum)
+Route::resource('laptop', LaptopController::class)->only(['index', 'show']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -39,6 +51,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist.index');
     Route::post('/wishlist/{laptop}', [UserController::class, 'addWishlist'])->name('wishlist.add');
     Route::delete('/wishlist/{laptop}', [UserController::class, 'removeWishlist'])->name('wishlist.remove');
-
 });
-

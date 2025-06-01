@@ -10,13 +10,13 @@ class LaptopController extends Controller
 {
     public function index()
     {
-        // $laptops = Laptop::paginate(10);
-        // return view('user.index', compact('laptops'));
+        $laptops = Laptop::paginate(10);
+        return view('laptop.index', compact('laptops'));
     }
 
     public function create()
     {
-        return view('user.laptop.create');
+        return view('laptop.create');
     }
 
     public function store(Request $request)
@@ -28,13 +28,13 @@ class LaptopController extends Controller
             // ...tambahkan validasi field lain sesuai kebutuhan...
         ]);
         Laptop::create($data);
-        return redirect()->route('user')->with('success', 'Laptop berhasil ditambahkan');
+        return redirect()->route('admin')->with('success', 'Laptop berhasil ditambahkan');
     }
 
     public function edit($id)
     {
         $laptop = Laptop::findOrFail($id);
-        return view('user.laptop.edit', compact('laptop'));
+        return view('laptop.edit', compact('laptop'));
     }
 
     public function update(Request $request, $id)
@@ -60,6 +60,6 @@ class LaptopController extends Controller
     public function show($id)
     {
         $laptop = \App\Models\Laptop::findOrFail($id);
-        return view('user.laptop.show', compact('laptop'));
+        return view('laptop.show', compact('laptop'));
     }
 }

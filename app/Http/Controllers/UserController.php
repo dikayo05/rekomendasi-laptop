@@ -28,7 +28,6 @@ class UserController extends Controller
             $query->where('price', '<=', request('max_price'));
         }
 
-
         // Ambil kategori dari request, default 'gaming'
         $category = request('category', 'gaming');
 
