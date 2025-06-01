@@ -28,17 +28,6 @@ class UserController extends Controller
             $query->where('price', '<=', request('max_price'));
         }
 
-        // Sorting (tanpa price)
-        $sort = request('sort');
-        if ($sort == 'brand_asc') {
-            $query->orderBy('brand', 'asc');
-        } elseif ($sort == 'brand_desc') {
-            $query->orderBy('brand', 'desc');
-        } elseif ($sort == 'name_asc') {
-            $query->orderBy('name', 'asc');
-        } elseif ($sort == 'name_desc') {
-            $query->orderBy('name', 'desc');
-        }
 
         // Ambil kategori dari request, default 'gaming'
         $category = request('category', 'gaming');

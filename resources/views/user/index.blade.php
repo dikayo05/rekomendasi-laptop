@@ -8,7 +8,7 @@
 
     <div class="flex-1">
         <div class="max-w-md mx-auto mt-10">
-            <h2 class="text-2xl font-bold mb-4">Homepage User</h2>
+            <h2 class="text-2xl font-bold mb-4">Homepage</h2>
             <p>Selamat datang, {{ Auth::check() ? Auth::user()->name : 'Pengunjung' }}!</p>
         </div>
 
