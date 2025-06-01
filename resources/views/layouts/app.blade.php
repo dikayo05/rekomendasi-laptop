@@ -26,8 +26,8 @@
                 @guest
                     <a href="{{ route('login') }}" class="text-blue-500 px-3">Login</a>
                     <a href="{{ route('register') }}" class="text-blue-500 px-3">Register</a>
-                    <a href="{{ route('about') }}" class="text-black px-3">About</a>
                 @endguest
+                <a href="{{ route('about') }}" class="text-black px-3">About</a>
             </div>
         </div>
     </nav>
