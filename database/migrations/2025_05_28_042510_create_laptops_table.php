@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::createIfNotExists('laptops', function (Blueprint $table) {
+        if (Schema::hasTable('laptops')) {
+            return; // Jika tabel sudah ada, tidak perlu membuat ulang
+        }
+
+        Schema::create('laptops', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
             $table->string('name');
