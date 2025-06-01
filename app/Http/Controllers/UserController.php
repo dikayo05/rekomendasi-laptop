@@ -169,13 +169,20 @@ class UserController extends Controller
                 // Untuk display_type, konversi ke angka
                 if ($key === 'display_type') {
                     $value = (strtolower($laptop->display_type) == 'ips' || strtolower($laptop->display_type) == 'oled') ? 2 : 1;
+                } elseif ($key === 'resolution') {
+                    // Ambil angka terbesar dari resolusi, misal "1920x1080" -> 1920
+                    $value = 0;
+                    if (!empty($laptop->resolution) && preg_match('/(\d+)/', $laptop->resolution, $matches)) {
+                        $value = (int)$matches[1];
+                    }
                 } else {
-                    $value = $laptop->$key ?? 0;
+                    $value = is_numeric($laptop->$key) ? $laptop->$key : 0;
                 }
+                $w = is_numeric($w) ? $w : 0; // Pastikan bobot numerik
                 if ($criteria[$key] == 'benefit') {
-                    $norm = $max[$key] > 0 ? $value / $max[$key] : 0;
+                    $norm = (is_numeric($max[$key]) && $max[$key] > 0) ? $value / $max[$key] : 0;
                 } else { // cost
-                    $norm = $value > 0 ? $min[$key] / $value : 0;
+                    $norm = ($value > 0 && is_numeric($min[$key]) && $min[$key] > 0) ? $min[$key] / $value : 0;
                 }
                 $score += $w * $norm;
             }

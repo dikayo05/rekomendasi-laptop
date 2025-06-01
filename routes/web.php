@@ -21,6 +21,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Halaman user.index bisa diakses tanpa login
 Route::get('/', [UserController::class, 'index'])->name('user');
 
+
+Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
+Route::resource('laptop', LaptopController::class);
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         if (Auth::User()->role === 'admin') {
@@ -30,11 +34,9 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('user');
     })->name('admin');
 
-    Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist.index');
     Route::post('/wishlist/{laptop}', [UserController::class, 'addWishlist'])->name('wishlist.add');
     Route::delete('/wishlist/{laptop}', [UserController::class, 'removeWishlist'])->name('wishlist.remove');
 
-    Route::resource('laptop', LaptopController::class);
 });
 
