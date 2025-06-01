@@ -4,41 +4,56 @@
 <div class="max-w-2xl mx-auto mt-10 bg-white shadow rounded-lg p-8">
     <h1 class="text-2xl font-bold mb-4">Tentang Website Ini</h1>
     <p class="mb-4">
-        Website ini dibuat untuk membantu pengguna dalam memilih laptop yang sesuai dengan kebutuhan mereka, baik untuk keperluan <b>gaming</b>, <b>desain grafis</b>, <b>perkantoran</b>, maupun <b>sekolah</b>. Dengan banyaknya pilihan laptop di pasaran, seringkali konsumen kesulitan menentukan mana yang paling sesuai dengan spesifikasi dan anggaran yang dimiliki.
+        Website ini dibangun sebagai platform rekomendasi laptop yang membantu pengguna dalam memilih laptop terbaik sesuai kebutuhan mereka, seperti untuk <b>gaming</b>, <b>desain grafis</b>, <b>sekolah</b>, maupun <b>pekerjaan kantor</b>.
     </p>
     <p class="mb-4">
-        Melalui website ini, pengguna dapat melakukan pencarian dan penyaringan berdasarkan berbagai kriteria seperti harga, merk, serta kategori penggunaan. Website ini juga dilengkapi fitur <b>wishlist</b> untuk menyimpan laptop yang diminati.
+        Kami menyadari bahwa memilih laptop yang tepat bisa menjadi hal yang membingungkan karena banyaknya spesifikasi teknis yang perlu dipertimbangkan. Oleh karena itu, website ini hadir untuk memberikan rekomendasi laptop berdasarkan perhitungan yang objektif dan terstruktur, menggunakan metode <b>SAW (Simple Additive Weighting)</b>.
     </p>
-    <h2 class="text-xl font-semibold mt-6 mb-2">Metode Penilaian: Simple Additive Weighting (SAW)</h2>
-    <p class="mb-4">
-        Untuk memberikan rekomendasi yang objektif dan relevan, website ini menggunakan metode <b>SAW (Simple Additive Weighting)</b>, salah satu metode pengambilan keputusan multikriteria. Metode ini bekerja dengan cara:
-    </p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Tujuan Website</h2>
+    <ul class="list-disc list-inside mb-4 space-y-1">
+        <li>Membantu pengguna menemukan laptop yang paling sesuai dengan kebutuhan dan anggaran mereka.</li>
+        <li>Menyediakan sistem penilaian dan pemeringkatan laptop secara otomatis berdasarkan berbagai kriteria penting.</li>
+        <li>Memberikan filtering dan pencarian berdasarkan harga, brand, dan nama laptop.</li>
+    </ul>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Cara Kerja Metode SAW</h2>
     <ol class="list-decimal list-inside mb-4 space-y-2">
         <li>
-            <b>Menentukan Bobot dan Jenis Kriteria</b><br>
-            Setiap kategori laptop (gaming, desain, kantor, sekolah) memiliki bobot dan jenis kriteria yang berbeda. Contohnya:
+            <b>Menentukan Kriteria dan Bobot</b><br>
+            Setiap kategori (seperti gaming, desain, sekolah, kantor) memiliki kriteria dan bobot penilaian yang berbeda. Contohnya:
             <ul class="list-disc list-inside ml-5">
-                <li>Harga dan berat laptop dianggap sebagai <b>cost</b> (semakin rendah nilainya, semakin baik).</li>
-                <li>RAM, benchmark CPU/GPU, ukuran baterai, resolusi, dll. dianggap sebagai <b>benefit</b> (semakin tinggi nilainya, semakin baik).</li>
+                <li>Untuk kategori gaming, kriteria seperti <b>CPU</b>, <b>GPU</b>, dan <b>RAM</b> memiliki bobot yang besar karena sangat memengaruhi performa.</li>
+                <li>Untuk kategori sekolah, kriteria seperti <b>harga</b>, <b>daya tahan baterai</b>, dan <b>berat laptop</b> lebih diprioritaskan.</li>
             </ul>
         </li>
         <li>
-            <b>Normalisasi Nilai</b><br>
-            Nilai setiap kriteria dinormalisasi agar bisa dibandingkan secara adil.<br>
-            <span class="block ml-5">Untuk kriteria benefit: <code>nilai / nilai maksimum</code></span>
-            <span class="block ml-5">Untuk kriteria cost: <code>nilai minimum / nilai</code></span>
+            <b>Klasifikasi Cost dan Benefit</b>
+            <ul class="list-disc list-inside ml-5">
+                <li><b>Benefit:</b> Semakin tinggi nilainya, semakin baik (contoh: RAM, CPU benchmark).</li>
+                <li><b>Cost:</b> Semakin rendah nilainya, semakin baik (contoh: harga, berat laptop).</li>
+            </ul>
         </li>
         <li>
-            <b>Perhitungan Skor Akhir</b><br>
-            Setelah dinormalisasi, nilai setiap kriteria dikalikan dengan bobotnya. Seluruh hasil perkalian dijumlahkan untuk mendapatkan skor akhir SAW dari masing-masing laptop.
+            <b>Normalisasi Nilai Kriteria</b><br>
+            Nilai setiap laptop dinormalisasi agar dapat dibandingkan secara adil:
+            <ul class="list-disc list-inside ml-5">
+                <li>Untuk benefit: <code>nilai / nilai maksimum</code></li>
+                <li>Untuk cost: <code>nilai minimum / nilai</code></li>
+            </ul>
         </li>
         <li>
-            <b>Pemeringkatan Laptop</b><br>
-            Laptop-laptop akan diurutkan berdasarkan skor SAW tertinggi. Semakin tinggi skor, semakin sesuai laptop tersebut untuk kategori penggunaan yang dipilih.
+            <b>Perhitungan Skor Akhir (SAW Score)</b><br>
+            Skor akhir dihitung dengan menjumlahkan hasil normalisasi yang telah dikalikan dengan bobot masing-masing kriteria.
+        </li>
+        <li>
+            <b>Pemeringkatan</b><br>
+            Laptop dengan skor tertinggi akan muncul di urutan teratas sebagai rekomendasi terbaik untuk kategori yang dipilih.
         </li>
     </ol>
-    <p>
-        Dengan pendekatan ini, rekomendasi yang dihasilkan lebih transparan, logis, dan dapat dipertanggungjawabkan karena mempertimbangkan berbagai aspek penting dari spesifikasi laptop.
-    </p>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Fitur Tambahan</h2>
+    <ul class="list-disc list-inside mb-2 space-y-1">
+        <li>Filter berdasarkan harga minimum dan maksimum</li>
+        <li>Sorting berdasarkan nama atau merek</li>
+        <li>Wishlist, agar pengguna dapat menyimpan laptop favorit mereka</li>
+    </ul>
 </div>
 @endsection

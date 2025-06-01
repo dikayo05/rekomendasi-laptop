@@ -21,6 +21,8 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Halaman user.index bisa diakses tanpa login
 Route::get('/', [UserController::class, 'index'])->name('user');
 
+// Route ke halaman about
+Route::view('/about', 'about')->name('about');
 
 Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
 Route::resource('laptop', LaptopController::class);
