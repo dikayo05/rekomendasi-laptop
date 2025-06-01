@@ -18,7 +18,7 @@ npm run build
 
 ### Step3: Add Requirement
 ```bash
-cp .env.example .env
+copy .env.example .env
 php artisan key:generate
 php artisan storage:link
 php artisan migrate
