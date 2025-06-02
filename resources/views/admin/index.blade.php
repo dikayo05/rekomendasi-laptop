@@ -50,7 +50,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no = 1; @endphp
+                        @php
+                            $no = ($laptops->currentPage() - 1) * $laptops->perPage() + 1;
+                        @endphp
                         @forelse($laptops as $laptop)
                         <tr>
                             <td class="px-4 py-2 border-b">{{ $no++ }}</td>
