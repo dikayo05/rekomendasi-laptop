@@ -47,14 +47,14 @@ class LaptopController extends Controller
             // ...tambahkan validasi field lain sesuai kebutuhan...
         ]);
         $laptop->update($data);
-        return redirect()->route('user')->with('success', 'Laptop berhasil diupdate');
+        return redirect()->route('admin')->with('success', 'Laptop berhasil diupdate');
     }
 
     public function destroy($id)
     {
         $laptop = Laptop::findOrFail($id);
         $laptop->delete();
-        return redirect()->route('user')->with('success', 'Laptop berhasil dihapus');
+        return redirect()->route('admin')->with('success', 'Laptop berhasil dihapus');
     }
 
     public function show($id)

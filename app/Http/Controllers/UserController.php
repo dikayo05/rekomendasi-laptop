@@ -10,6 +10,30 @@ class UserController extends Controller
 {
     public function index()
     {
+        // Jika user adalah admin, tampilkan halaman admin
+        // if (Auth::check() && Auth::user()->role === 'admin') {
+        //     // Ambil data pencarian/filter jika ada
+        //     $query = \App\Models\Laptop::query();
+
+        //     if (request()->has('q') && request('q') !== null) {
+        //         $q = request('q');
+        //         $query->where(function ($sub) use ($q) {
+        //             $sub->where('name', 'like', "%$q%")
+        //                 ->orWhere('brand', 'like', "%$q%");
+        //         });
+        //     }
+        //     if (request()->filled('min_price')) {
+        //         $query->where('price', '>=', request('min_price'));
+        //     }
+        //     if (request()->filled('max_price')) {
+        //         $query->where('price', '<=', request('max_price'));
+        //     }
+
+        //     $laptops = $query->paginate(10)->withQueryString();
+        //     // return route('admin', compact('laptops'));
+        //     return redirect()->route('admin', compact('laptops'));
+        // }
+
         $query = \App\Models\Laptop::query();
 
         if (request()->has('q') && request('q') !== null) {
@@ -42,7 +66,7 @@ class UserController extends Controller
                     'battery_size' => 0.1,     // benefit
                     'screen_size' => 0.05,     // benefit
                     'refresh_rate' => 0.05,    // benefit
-                    'internal_storage' => 0.05,// benefit
+                    'internal_storage' => 0.05, // benefit
                     'weight' => 0.05,          // cost
                 ],
                 'criteria' => [
@@ -109,7 +133,7 @@ class UserController extends Controller
                     'battery_size' => 0.15,    // benefit
                     'weight' => 0.1,           // cost
                     'screen_size' => 0.1,      // benefit
-                    'internal_storage' => 0.15,// benefit
+                    'internal_storage' => 0.15, // benefit
                     'thickness' => 0.05,       // cost
                 ],
                 'criteria' => [
@@ -138,10 +162,10 @@ class UserController extends Controller
         foreach ($weights as $key => $w) {
             // Untuk display_type, konversi ke angka (IPS/OLED = 2, lain = 1)
             if ($key === 'display_type') {
-                $max[$key] = $allLaptops->map(function($l) {
+                $max[$key] = $allLaptops->map(function ($l) {
                     return (strtolower($l->display_type) == 'ips' || strtolower($l->display_type) == 'oled') ? 2 : 1;
                 })->max();
-                $min[$key] = $allLaptops->map(function($l) {
+                $min[$key] = $allLaptops->map(function ($l) {
                     return (strtolower($l->display_type) == 'ips' || strtolower($l->display_type) == 'oled') ? 2 : 1;
                 })->min();
             } else {
@@ -192,18 +216,10 @@ class UserController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        // Jika user adalah admin, tampilkan halaman admin
         if (Auth::check() && Auth::user()->role === 'admin') {
-            return view('admin.index', compact('laptops'));
+            return view('admin.index', compact('laptops', 'category'));
         }
-
         return view('user.index', compact('laptops', 'category'));
-    }
-
-    public function show($id)
-    {
-        $laptop = \App\Models\Laptop::findOrFail($id);
-        return view('laptop.show', compact('laptop'));
     }
 
     public function addWishlist($laptopId)
