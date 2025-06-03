@@ -7,10 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaptopController;
 
-// Route::get('/', function () {
-//     return view('user.index');
-// });
-
+// Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -24,20 +21,39 @@ Route::get('/', [UserController::class, 'index'])->name('user');
 // Route ke halaman about
 Route::view('/about', 'about')->name('about');
 
-// Route ke halaman detail laptop (user & guest)
-Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
-
 // Hanya admin yang bisa akses create, edit, update, destroy laptop
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/laptop/create', [LaptopController::class, 'create'])->name('laptop.create');
-    Route::post('/laptop', [LaptopController::class, 'store'])->name('laptop.store');
-    Route::get('/laptop/{laptop}/edit', [LaptopController::class, 'edit'])->name('laptop.edit');
-    Route::put('/laptop/{laptop}', [LaptopController::class, 'update'])->name('laptop.update');
-    Route::delete('/laptop/{laptop}', [LaptopController::class, 'destroy'])->name('laptop.destroy');
+Route::middleware('auth')->group(function () {
+    Route::get('/laptop/create', function () {
+        if (Auth::user()->role !== 'admin') abort(403, 'Unauthorized');
+        return app(\App\Http\Controllers\LaptopController::class)->create();
+    })->name('laptop.create');
+
+    Route::post('/laptop', function (\Illuminate\Http\Request $request) {
+        if (Auth::user()->role !== 'admin') abort(403, 'Unauthorized');
+        return app(\App\Http\Controllers\LaptopController::class)->store($request);
+    })->name('laptop.store');
+
+    Route::get('/laptop/{laptop}/edit', function ($laptop) {
+        if (Auth::user()->role !== 'admin') abort(403, 'Unauthorized');
+        return app(\App\Http\Controllers\LaptopController::class)->edit($laptop);
+    })->name('laptop.edit');
+
+    Route::put('/laptop/{laptop}', function (\Illuminate\Http\Request $request, $laptop) {
+        if (Auth::user()->role !== 'admin') abort(403, 'Unauthorized');
+        return app(\App\Http\Controllers\LaptopController::class)->update($request, $laptop);
+    })->name('laptop.update');
+
+    Route::delete('/laptop/{laptop}', function ($laptop) {
+        if (Auth::user()->role !== 'admin') abort(403, 'Unauthorized');
+        return app(\App\Http\Controllers\LaptopController::class)->destroy($laptop);
+    })->name('laptop.destroy');
 });
 
 // Route resource hanya untuk index & show (akses umum)
 Route::resource('laptop', LaptopController::class)->only(['index', 'show']);
+
+// Route ke halaman detail laptop (user & guest) HARUS DITARUH PALING BAWAH AGAR TIDAK MENIMPA route lain
+Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {

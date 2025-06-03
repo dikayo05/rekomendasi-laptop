@@ -217,6 +217,7 @@ class UserController extends Controller
         );
 
         if (Auth::check() && Auth::user()->role === 'admin') {
+            $laptops = \App\Models\Laptop::orderBy('created_at', 'desc')->paginate(10);
             return view('admin.index', compact('laptops', 'category'));
         }
         return view('user.index', compact('laptops', 'category'));
@@ -241,5 +242,11 @@ class UserController extends Controller
         $user = Auth::user();
         $laptops = $user->wishlists()->paginate(10);
         return view('user.wishlist', compact('laptops'));
+    }
+
+    public function show($id)
+    {
+        $laptop = \App\Models\Laptop::findOrFail($id);
+        return view('laptop.show', compact('laptop'));
     }
 }

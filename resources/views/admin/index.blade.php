@@ -3,9 +3,6 @@
 @section('content')
 <div class="flex">
 
-    {{-- Siderbar --}}
-    @include('layouts.sidebar')
-
     <div class="flex-1">
         <div class="max-w-md mx-auto mt-10">
             <h2 class="text-2xl font-bold mb-4">Dashboard</h2>
@@ -43,9 +40,9 @@
                             <th class="px-4 py-2 border-b">Nama</th>
                             <th class="px-4 py-2 border-b">Brand</th>
                             <th class="px-4 py-2 border-b">Harga</th>
-                            <th class="px-4 py-2 border-b">Tipe</th>
                             <th class="px-4 py-2 border-b">RAM</th>
                             <th class="px-4 py-2 border-b">Penyimpanan</th>
+                            <th class="px-4 py-2 border-b">Gambar</th>
                             <th class="px-4 py-2 border-b">Aksi</th>
                         </tr>
                     </thead>
@@ -59,9 +56,15 @@
                             <td class="px-4 py-2 border-b">{{ $laptop->name }}</td>
                             <td class="px-4 py-2 border-b">{{ $laptop->brand }}</td>
                             <td class="px-4 py-2 border-b">Rp{{ number_format($laptop->price, 0, ',', '.') }}</td>
-                            <td class="px-4 py-2 border-b">{{ $laptop->type }}</td>
                             <td class="px-4 py-2 border-b">{{ $laptop->ram }}</td>
                             <td class="px-4 py-2 border-b">{{ $laptop->internal_storage }}</td>
+                            <td>
+                                @if($laptop->image)
+                                    <img src="{{ asset($laptop->image) }}" alt="{{ $laptop->name }}" style="max-width:60px;max-height:60px;">
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td class="px-4 py-2 border-b">
                                 <a href="{{ route('laptop.show', ['laptop' => $laptop->id]) }}" class="text-blue-500 hover:underline">Detail</a>
                                 <a href="{{ route('laptop.edit', $laptop->id) }}" class="text-yellow-500 hover:underline ml-2">Edit</a>

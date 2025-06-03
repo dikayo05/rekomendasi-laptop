@@ -114,8 +114,21 @@
             <label class="block mb-1">Kapasitas Baterai</label>
             <input type="number" name="battery_size" class="w-full border rounded px-3 py-2" value="{{ $laptop->battery_size }}">
         </div>
+        <div class="mb-4">
+            <label class="block mb-1">Gambar Saat Ini</label>
+            @if($laptop->image)
+                <img src="{{ asset($laptop->image) }}" alt="Gambar Laptop" class="mb-2 w-32 h-24 object-cover rounded">
+            @else
+                <span class="text-gray-400 italic">Belum ada gambar</span>
+            @endif
+        </div>
+        <div class="mb-4">
+            <label class="block mb-1">Ubah Gambar</label>
+            <input type="file" name="image" class="w-full border rounded px-3 py-2" accept="image/*">
+            <small class="text-gray-500">Kosongkan jika tidak ingin mengubah gambar.</small>
+        </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
-        <a href="{{ route('admin') }}" class="ml-2 text-gray-600">Batal</a>
+        <a href="{{ route('user') }}" class="ml-2 text-gray-600">Batal</a>
     </form>
 </div>
 @endsection
