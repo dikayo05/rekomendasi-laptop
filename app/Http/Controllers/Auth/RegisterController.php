@@ -21,14 +21,14 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'in:user,admin'],
+            // 'role' => ['required', 'in:user,admin'], // hapus validasi role dari input
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
+            'role' => 'user', // selalu user
         ]);
 
         Auth::login($user);
@@ -36,6 +36,6 @@ class RegisterController extends Controller
         if ($user->role === 'admin') {
             return redirect('/dashboard');
         }
-        return redirect('/homepage');
+        return redirect()->route('user');
     }
 }

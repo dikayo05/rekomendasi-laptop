@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <!-- Main css -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body>
 
     <div class="main">
@@ -26,23 +28,35 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Sign up</h2>
+                        <h2 class="form-title">Sign in</h2>
                         <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                             @csrf
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="email" name="email" id="your_name" placeholder="Your Email"/>
+                                <input type="email" name="email" id="your_name" placeholder="Your Email" />
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                                <input type="password" name="password" id="your_pass" placeholder="Password" />
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="remember" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember
+                                    me</label>
                             </div>
+                            {{-- display error --}}
+                            @if ($errors->any())
+                                <div style="color:red; margin-bottom: 10px;">
+                                    <ul style="margin:0; padding-left:20px;">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                                <input type="submit" name="signin" id="signin" class="form-submit"
+                                    value="Log in" />
                             </div>
                         </form>
                         <div class="social-login">
@@ -61,4 +75,5 @@
     </div>
 
 </body>
+
 </html>
