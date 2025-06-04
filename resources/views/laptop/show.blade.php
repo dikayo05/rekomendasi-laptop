@@ -13,29 +13,29 @@
             <ul class="mb-4 text-gray-700 space-y-1">
                 <li><b>Harga:</b> Rp{{ number_format($laptop->price, 0, ',', '.') }}</li>
                 <li><b>Tipe:</b> {{ $laptop->type }}</li>
-                <li><b>Berat:</b> {{ $laptop->weight }}</li>
-                <li><b>Ketebalan:</b> {{ $laptop->thickness }}</li>
+                <li><b>Berat:</b> {{ $laptop->weight }} g</li>
+                <li><b>Ketebalan:</b> {{ $laptop->thickness }} mm</li>
                 <li><b>Ukuran Layar:</b> {{ $laptop->screen_size }}</li>
                 <li><b>Lebar Layar:</b> {{ $laptop->screen_width }}</li>
                 <li><b>Tinggi Layar:</b> {{ $laptop->screen_height }}</li>
                 <li><b>Resolusi:</b> {{ $laptop->resolution }}</li>
-                <li><b>Kerapatan Piksel:</b> {{ $laptop->pixel_density }}</li>
+                <li><b>Kerapatan Piksel:</b> {{ $laptop->pixel_density }} ppi</li>
                 <li><b>Tipe Layar:</b> {{ $laptop->display_type }}</li>
-                <li><b>Kecerahan:</b> {{ $laptop->brightness }}</li>
-                <li><b>Refresh Rate:</b> {{ $laptop->refresh_rate }}</li>
+                <li><b>Kecerahan:</b> {{ $laptop->brightness }} nits</li>
+                <li><b>Refresh Rate:</b> {{ $laptop->refresh_rate }} Hz</li>
                 <li><b>CPU:</b> {{ $laptop->cpu }}</li>
-                <li><b>Kecepatan CPU:</b> {{ $laptop->cpu_speed }}</li>
+                <li><b>Kecepatan CPU:</b> {{ $laptop->cpu_speed }} GHz</li>
                 <li><b>Thread CPU:</b> {{ $laptop->cpu_thread }}</li>
                 <li><b>GPU:</b> {{ $laptop->gpu }}</li>
-                <li><b>RAM:</b> {{ $laptop->ram }}</li>
-                <li><b>Kecepatan RAM:</b> {{ $laptop->ram_speed }}</li>
-                <li><b>VRAM:</b> {{ $laptop->vram }}</li>
+                <li><b>RAM:</b> {{ $laptop->ram }} GB</li>
+                <li><b>Kecepatan RAM:</b> {{ $laptop->ram_speed }} MHz</li>
+                <li><b>VRAM:</b> {{ $laptop->vram }} GB</li>
                 <li><b>Tipe Penyimpanan:</b> {{ $laptop->storage_type }}</li>
-                <li><b>Penyimpanan Internal:</b> {{ $laptop->internal_storage }}</li>
+                <li><b>Penyimpanan Internal:</b> {{ $laptop->internal_storage }} GB</li>
                 <li><b>Benchmark CPU:</b> {{ $laptop->cpu_benchmark }}</li>
                 <li><b>Benchmark CPU Multithread:</b> {{ $laptop->cpu_benchmark_multithread }}</li>
                 <li><b>Benchmark GPU:</b> {{ $laptop->gpu_benchmark }}</li>
-                <li><b>Kapasitas Baterai:</b> {{ $laptop->battery_size }}</li>
+                <li><b>Kapasitas Baterai:</b> {{ $laptop->battery_size }} Wh</li>
             </ul>
         </div>
     </div>

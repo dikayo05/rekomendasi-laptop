@@ -52,17 +52,16 @@ Route::middleware('auth')->group(function () {
 // Route resource hanya untuk index & show (akses umum)
 Route::resource('laptop', LaptopController::class)->only(['index', 'show']);
 
-// Route ke halaman detail laptop (user & guest) HARUS DITARUH PALING BAWAH AGAR TIDAK MENIMPA route lain
 Route::get('/laptop/{laptop}', [UserController::class, 'show'])->name('laptop.show');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        if (Auth::User()->role === 'admin') {
-            return view('admin.index');
-        }
-        // Jika user, redirect ke homepage user
-        return redirect()->route('user');
-    })->name('admin');
+    // Route::get('/dashboard', function () {
+    //     if (Auth::User()->role === 'admin') {
+    //         return view('admin.index');
+    //     }
+    //     // Jika user, redirect ke homepage user
+    //     return redirect()->route('user');
+    // })->name('admin');
 
     Route::get('/wishlist', [UserController::class, 'wishlist'])->name('wishlist.index');
     Route::post('/wishlist/{laptop}', [UserController::class, 'addWishlist'])->name('wishlist.add');

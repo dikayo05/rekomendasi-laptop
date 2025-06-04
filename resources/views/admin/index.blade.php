@@ -56,8 +56,8 @@
                             <td class="px-4 py-2 border-b">{{ $laptop->name }}</td>
                             <td class="px-4 py-2 border-b">{{ $laptop->brand }}</td>
                             <td class="px-4 py-2 border-b">Rp{{ number_format($laptop->price, 0, ',', '.') }}</td>
-                            <td class="px-4 py-2 border-b">{{ $laptop->ram }}</td>
-                            <td class="px-4 py-2 border-b">{{ $laptop->internal_storage }}</td>
+                            <td class="px-4 py-2 border-b">{{ $laptop->ram }} GB</td>
+                            <td class="px-4 py-2 border-b">{{ $laptop->internal_storage }} GB</td>
                             <td>
                                 @if($laptop->image)
                                     <img src="{{ asset($laptop->image) }}" alt="{{ $laptop->name }}" style="max-width:60px;max-height:60px;">

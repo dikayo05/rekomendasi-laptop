@@ -10,30 +10,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Jika user adalah admin, tampilkan halaman admin
-        // if (Auth::check() && Auth::user()->role === 'admin') {
-        //     // Ambil data pencarian/filter jika ada
-        //     $query = \App\Models\Laptop::query();
-
-        //     if (request()->has('q') && request('q') !== null) {
-        //         $q = request('q');
-        //         $query->where(function ($sub) use ($q) {
-        //             $sub->where('name', 'like', "%$q%")
-        //                 ->orWhere('brand', 'like', "%$q%");
-        //         });
-        //     }
-        //     if (request()->filled('min_price')) {
-        //         $query->where('price', '>=', request('min_price'));
-        //     }
-        //     if (request()->filled('max_price')) {
-        //         $query->where('price', '<=', request('max_price'));
-        //     }
-
-        //     $laptops = $query->paginate(10)->withQueryString();
-        //     // return route('admin', compact('laptops'));
-        //     return redirect()->route('admin', compact('laptops'));
-        // }
-
         $query = \App\Models\Laptop::query();
 
         if (request()->has('q') && request('q') !== null) {
