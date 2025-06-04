@@ -54,7 +54,7 @@ class LaptopController extends Controller
 
         // Proses upload gambar jika ada
         if ($request->hasFile('image')) {
-            $data['image'] = 'storage/' . $request->file('image')->store('laptops', 'public');
+            $data['image'] = 'images/' . $request->file('image')->store('laptops', 'public');
         }
 
         Laptop::create($data);
@@ -103,7 +103,7 @@ class LaptopController extends Controller
 
         // Proses upload gambar jika ada
         if ($request->hasFile('image')) {
-            $data['image'] = 'storage/' . $request->file('image')->store('laptops', 'public');
+            $data['image'] = 'images/' . $request->file('image')->store('laptops', 'public');
         } else {
             unset($data['image']);
         }

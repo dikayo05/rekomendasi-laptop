@@ -22,7 +22,7 @@ class LaptopSeeder extends Seeder
 
         for ($i = 1; $i <= 30; $i++) {
             DB::table('laptops')->insert([
-                'image' => 'storage/laptops/default.png',
+                'image' => 'images/laptops/default.png',
                 'name' => 'Laptop ' . Str::random(5) . " $i",
                 'brand' => $brands[array_rand($brands)],
                 'price' => rand(5000000, 35000000),
