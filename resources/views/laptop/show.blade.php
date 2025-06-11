@@ -10,6 +10,12 @@
         <div class="flex-1">
             <h2 class="text-2xl font-bold mb-2">{{ $laptop->name }}</h2>
             <p class="text-gray-600 mb-2">{{ $laptop->brand }}</p>
+
+            {{-- Chart --}}
+            <div class="mb-6">
+                <canvas id="laptopChart" width="400" height="250"></canvas>
+            </div>
+
             <ul class="mb-4 text-gray-700 space-y-1">
                 <li><b>Harga:</b> Rp{{ number_format($laptop->price, 0, ',', '.') }}</li>
                 <li><b>Tipe:</b> {{ $laptop->type }}</li>
@@ -40,4 +46,48 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var chartCanvas = document.getElementById('laptopChart');
+    if (!chartCanvas) return;
+    var ctx = chartCanvas.getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['CPU Benchmark', 'GPU Benchmark', 'Battery Size'],
+            datasets: [{
+                label: @json($laptop->name),
+                backgroundColor: 'rgba(59,130,246,0.2)',
+                borderColor: '#3b82f6',
+                pointBackgroundColor: '#3b82f6',
+                data: [
+                    Number({{ $laptop->cpu_benchmark ?? 0 }}),
+                    Number({{ $laptop->gpu_benchmark ?? 0 }}),
+                    Number({{ $laptop->battery_size ?? 0 }})
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: true }
+            },
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    pointLabels: {
+                        font: { size: 14 }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
 @endsection

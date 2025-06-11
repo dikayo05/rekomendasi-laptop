@@ -54,7 +54,20 @@ class LaptopController extends Controller
 
         // Proses upload gambar jika ada
         if ($request->hasFile('image')) {
-            $data['image'] = 'images/' . $request->file('image')->store('laptops', 'public');
+            // Upload ke public/laptops/ dulu
+            $filename = uniqid('laptop_') . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('laptops'), $filename);
+
+            // Pindahkan ke public/images/laptops
+            $from = public_path('laptops/' . $filename);
+            $toDir = public_path('images/laptops');
+            if (!is_dir($toDir)) {
+                mkdir($toDir, 0777, true);
+            }
+            $to = $toDir . '/' . $filename;
+            rename($from, $to);
+
+            $data['image'] = 'images/laptops/' . $filename;
         }
 
         Laptop::create($data);
@@ -103,7 +116,19 @@ class LaptopController extends Controller
 
         // Proses upload gambar jika ada
         if ($request->hasFile('image')) {
-            $data['image'] = 'images/' . $request->file('image')->store('laptops', 'public');
+            $filename = uniqid('laptop_') . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('laptops'), $filename);
+
+            // Pindahkan ke public/images/laptops
+            $from = public_path('laptops/' . $filename);
+            $toDir = public_path('images/laptops');
+            if (!is_dir($toDir)) {
+                mkdir($toDir, 0777, true);
+            }
+            $to = $toDir . '/' . $filename;
+            rename($from, $to);
+
+            $data['image'] = 'images/laptops/' . $filename;
         } else {
             unset($data['image']);
         }
