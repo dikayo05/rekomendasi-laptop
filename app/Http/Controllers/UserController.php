@@ -150,15 +150,21 @@ class UserController extends Controller
             }
         }
 
-        // Hitung skor SAW
+        // Hitung skor SAW dan score 1-100 untuk chart
         foreach ($allLaptops as $laptop) {
             $score = 0;
+            // Score 1-100 untuk chart
+            $chart_scores = [];
+            // List kriteria yang ingin ditampilkan di chart
+            $chart_keys = [
+                'cpu_benchmark', 'gpu_benchmark', 'battery_size', 'ram',
+                'refresh_rate', 'internal_storage', 'weight', 'brightness'
+            ];
             foreach ($weights as $key => $w) {
                 // Untuk display_type, konversi ke angka
                 if ($key === 'display_type') {
                     $value = (strtolower($laptop->display_type) == 'ips' || strtolower($laptop->display_type) == 'oled') ? 2 : 1;
                 } elseif ($key === 'resolution') {
-                    // Ambil angka terbesar dari resolusi, misal "1920x1080" -> 1920
                     $value = 0;
                     if (!empty($laptop->resolution) && preg_match('/(\d+)/', $laptop->resolution, $matches)) {
                         $value = (int)$matches[1];
@@ -173,8 +179,18 @@ class UserController extends Controller
                     $norm = ($value > 0 && is_numeric($min[$key]) && $min[$key] > 0) ? $min[$key] / $value : 0;
                 }
                 $score += $w * $norm;
+
+                // Hitung score 1-100 untuk chart (hanya untuk kriteria chart_keys)
+                if (in_array($key, $chart_keys)) {
+                    if ($criteria[$key] == 'benefit') {
+                        $chart_scores[$key] = (is_numeric($max[$key]) && $max[$key] > 0) ? round($value / $max[$key] * 100) : 0;
+                    } else { // cost (semakin kecil semakin baik)
+                        $chart_scores[$key] = ($value > 0 && is_numeric($min[$key]) && $min[$key] > 0) ? round($min[$key] / $value * 100) : 0;
+                    }
+                }
             }
             $laptop->saw_score = $score;
+            $laptop->chart_scores = $chart_scores; // array: key => score 1-100
         }
 
         // Urutkan berdasarkan skor SAW tertinggi
@@ -223,6 +239,40 @@ class UserController extends Controller
     public function show($id)
     {
         $laptop = \App\Models\Laptop::findOrFail($id);
+
+        // Hitung chart_scores untuk 1 laptop (agar chart tidak 0)
+        $allLaptops = \App\Models\Laptop::all();
+        $chart_keys = [
+            'cpu_benchmark', 'gpu_benchmark', 'battery_size', 'ram',
+            'refresh_rate', 'internal_storage', 'weight', 'brightness'
+        ];
+        $max = [];
+        $min = [];
+        foreach ($chart_keys as $key) {
+            $max[$key] = $allLaptops->max($key);
+            $min[$key] = $allLaptops->min($key);
+        }
+        $criteria = [
+            'cpu_benchmark' => 'benefit',
+            'gpu_benchmark' => 'benefit',
+            'battery_size' => 'benefit',
+            'ram' => 'benefit',
+            'refresh_rate' => 'benefit',
+            'internal_storage' => 'benefit',
+            'weight' => 'cost',
+            'brightness' => 'benefit',
+        ];
+        $chart_scores = [];
+        foreach ($chart_keys as $key) {
+            $value = is_numeric($laptop->$key) ? $laptop->$key : 0;
+            if ($criteria[$key] == 'benefit') {
+                $chart_scores[$key] = (is_numeric($max[$key]) && $max[$key] > 0) ? round($value / $max[$key] * 100) : 0;
+            } else { // cost
+                $chart_scores[$key] = ($value > 0 && is_numeric($min[$key]) && $min[$key] > 0) ? round($min[$key] / $value * 100) : 0;
+            }
+        }
+        $laptop->chart_scores = $chart_scores;
+
         return view('laptop.show', compact('laptop'));
     }
 }

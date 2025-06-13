@@ -59,16 +59,21 @@ document.addEventListener('DOMContentLoaded', function () {
     new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['CPU Benchmark', 'GPU Benchmark', 'Battery Size'],
+            labels: ['CPU Benchmark', 'GPU Benchmark', 'Battery Size', 'Ram', 'Refresh Rate', 'Internal Storage', 'Weight', 'Brightness'],
             datasets: [{
                 label: @json($laptop->name),
                 backgroundColor: 'rgba(59,130,246,0.2)',
                 borderColor: '#3b82f6',
                 pointBackgroundColor: '#3b82f6',
                 data: [
-                    Number({{ $laptop->cpu_benchmark ?? 0 }}),
-                    Number({{ $laptop->gpu_benchmark ?? 0 }}),
-                    Number({{ $laptop->battery_size ?? 0 }})
+                    Number({{ $laptop->chart_scores['cpu_benchmark'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['gpu_benchmark'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['battery_size'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['ram'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['refresh_rate'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['internal_storage'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['weight'] ?? 0 }}),
+                    Number({{ $laptop->chart_scores['brightness'] ?? 0 }})
                 ]
             }]
         },
@@ -82,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     beginAtZero: true,
                     pointLabels: {
                         font: { size: 14 }
-                    }
+                    },
+                    max: 100
                 }
             }
         }
