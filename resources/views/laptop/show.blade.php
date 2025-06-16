@@ -1,50 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-xl mx-auto mt-10 bg-white shadow rounded-lg p-6">
-    <a href="{{ route('user', ['page' => request('page', 1)]) }}" class="text-blue-500 hover:underline mb-4 inline-block">&larr; Kembali ke daftar laptop</a>
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow ">
+    <a href="{{ route('user', ['page' => request('page', 1)]) }}" 
+       class="inline-flex items-center text-blue-600 hover:underline mb-6">
+        ← Kembali ke daftar laptop
+    </a>
+
     <div class="flex flex-col md:flex-row gap-6">
         @if(!empty($laptop->image))
-            <img src="{{ asset($laptop->image) }}" alt="Gambar Laptop" class="w-full md:w-64 h-48 object-cover rounded mb-4 md:mb-0">
+            <div class="md:w-64 w-full h-48">
+                <img src="{{ asset($laptop->image) }}" alt="Gambar Laptop" 
+                     class="w-full h-full object-cover rounded-lg shadow">
+            </div>
         @endif
+
         <div class="flex-1">
-            <h2 class="text-2xl font-bold mb-2">{{ $laptop->name }}</h2>
-            <p class="text-gray-600 mb-2">{{ $laptop->brand }}</p>
+            <h2 class="text-2xl font-bold mb-2 text-gray-900 ">{{ $laptop->name }}</h2>
+            <p class="text-gray-500 ">{{ $laptop->brand }}</p>
 
             {{-- Chart --}}
             <div class="mb-6">
                 <canvas id="laptopChart" width="400" height="250"></canvas>
             </div>
 
-            <ul class="mb-4 text-gray-700 space-y-1">
-                <li><b>Harga:</b> Rp{{ number_format($laptop->price, 0, ',', '.') }}</li>
-                <li><b>Berat:</b> {{ $laptop->weight }} g</li>
-                <li><b>Ketebalan:</b> {{ $laptop->thickness }} mm</li>
-                <li><b>Ukuran Layar:</b> {{ $laptop->screen_size }}</li>
-                <li><b>Lebar Layar:</b> {{ $laptop->screen_width }}</li>
-                <li><b>Tinggi Layar:</b> {{ $laptop->screen_height }}</li>
-                <li><b>Resolusi:</b> {{ $laptop->resolution }}</li>
-                <li><b>Kerapatan Piksel:</b> {{ $laptop->pixel_density }} ppi</li>
-                <li><b>Tipe Layar:</b> {{ $laptop->display_type }}</li>
-                <li><b>Kecerahan:</b> {{ $laptop->brightness }} nits</li>
-                <li><b>Refresh Rate:</b> {{ $laptop->refresh_rate }} Hz</li>
-                <li><b>CPU:</b> {{ $laptop->cpu }}</li>
-                <li><b>Kecepatan CPU:</b> {{ $laptop->cpu_speed }} GHz</li>
-                <li><b>Thread CPU:</b> {{ $laptop->cpu_thread }}</li>
-                <li><b>GPU:</b> {{ $laptop->gpu }}</li>
-                <li><b>RAM:</b> {{ $laptop->ram }} GB</li>
-                <li><b>Kecepatan RAM:</b> {{ $laptop->ram_speed }} MHz</li>
-                <li><b>VRAM:</b> {{ $laptop->vram }} GB</li>
-                <li><b>Tipe Penyimpanan:</b> {{ $laptop->storage_type }}</li>
-                <li><b>Penyimpanan Internal:</b> {{ $laptop->internal_storage }} GB</li>
-                <li><b>Benchmark CPU:</b> {{ $laptop->cpu_benchmark }}</li>
-                <li><b>Benchmark CPU Multithread:</b> {{ $laptop->cpu_benchmark_multithread }}</li>
-                <li><b>Benchmark GPU:</b> {{ $laptop->gpu_benchmark }}</li>
-                <li><b>Kapasitas Baterai:</b> {{ $laptop->battery_size }} Wh</li>
-            </ul>
+            <div class="overflow-auto">
+                <ul class="space-y-2 text-sm text-gray-700 ">
+                    <li><strong>Harga:</strong> Rp{{ number_format($laptop->price, 0, ',', '.') }}</li>
+                    <li><strong>Berat:</strong> {{ $laptop->weight }} g</li>
+                    <li><strong>Ketebalan:</strong> {{ $laptop->thickness }} mm</li>
+                    <li><strong>Ukuran Layar:</strong> {{ $laptop->screen_size }}</li>
+                    <li><strong>Lebar Layar:</strong> {{ $laptop->screen_width }}</li>
+                    <li><strong>Tinggi Layar:</strong> {{ $laptop->screen_height }}</li>
+                    <li><strong>Resolusi:</strong> {{ $laptop->resolution }}</li>
+                    <li><strong>Kerapatan Piksel:</strong> {{ $laptop->pixel_density }} ppi</li>
+                    <li><strong>Tipe Layar:</strong> {{ $laptop->display_type }}</li>
+                    <li><strong>Kecerahan:</strong> {{ $laptop->brightness }} nits</li>
+                    <li><strong>Refresh Rate:</strong> {{ $laptop->refresh_rate }} Hz</li>
+                    <li><strong>CPU:</strong> {{ $laptop->cpu }}</li>
+                    <li><strong>Kecepatan CPU:</strong> {{ $laptop->cpu_speed }} GHz</li>
+                    <li><strong>Thread CPU:</strong> {{ $laptop->cpu_thread }}</li>
+                    <li><strong>GPU:</strong> {{ $laptop->gpu }}</li>
+                    <li><strong>RAM:</strong> {{ $laptop->ram }} GB</li>
+                    <li><strong>Kecepatan RAM:</strong> {{ $laptop->ram_speed }} MHz</li>
+                    <li><strong>VRAM:</strong> {{ $laptop->vram }} GB</li>
+                    <li><strong>Tipe Penyimpanan:</strong> {{ $laptop->storage_type }}</li>
+                    <li><strong>Penyimpanan Internal:</strong> {{ $laptop->internal_storage }} GB</li>
+                    <li><strong>Benchmark CPU:</strong> {{ $laptop->cpu_benchmark }}</li>
+                    <li><strong>Benchmark CPU Multithread:</strong> {{ $laptop->cpu_benchmark_multithread }}</li>
+                    <li><strong>Benchmark GPU:</strong> {{ $laptop->gpu_benchmark }}</li>
+                    <li><strong>Kapasitas Baterai:</strong> {{ $laptop->battery_size }} Wh</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('scripts')

@@ -1,272 +1,141 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-2xl mx-auto mt-10 bg-white shadow rounded-lg p-8">
-        <h1 class="text-2xl font-bold mb-4">Tentang Website Ini</h1>
-        <p class="mb-4">
-            Website ini dibangun sebagai platform rekomendasi laptop yang membantu pengguna dalam memilih laptop terbaik
-            sesuai kebutuhan mereka, seperti untuk <b>gaming</b>, <b>desain grafis</b>, <b>sekolah</b>, maupun <b>pekerjaan
-                kantor</b>.
-        </p>
-        <p class="mb-4">
-            Kami menyadari bahwa memilih laptop yang tepat bisa menjadi hal yang membingungkan karena banyaknya spesifikasi
-            teknis yang perlu dipertimbangkan. Oleh karena itu, website ini hadir untuk memberikan rekomendasi laptop
-            berdasarkan perhitungan yang objektif dan terstruktur, menggunakan metode <b>SAW (Simple Additive
-                Weighting)</b>.
-        </p>
-        <h2 class="text-xl font-semibold mt-6 mb-2">Tujuan Website</h2>
-        <ul class="list-disc list-inside mb-4 space-y-1">
-            <li>Membantu pengguna menemukan laptop yang paling sesuai dengan kebutuhan dan anggaran mereka.</li>
-            <li>Menyediakan sistem penilaian dan pemeringkatan laptop secara otomatis berdasarkan berbagai kriteria penting.
-            </li>
-            <li>Memberikan filtering dan pencarian berdasarkan harga, brand, dan nama laptop.</li>
-        </ul>
-        <h2 class="text-xl font-semibold mt-6 mb-2">Cara Kerja Metode SAW</h2>
-        <ol class="list-decimal list-inside mb-4 space-y-2">
-            <li>
-                <b>Menentukan Kriteria dan Bobot</b><br>
-                Setiap kategori (seperti gaming, desain, sekolah, kantor) memiliki kriteria dan bobot penilaian yang
-                berbeda. Contohnya:
-                <ul class="list-disc list-inside ml-5">
-                    <li>Untuk kategori gaming, kriteria seperti <b>CPU</b>, <b>GPU</b>, dan <b>RAM</b> memiliki bobot yang
-                        besar karena sangat memengaruhi performa.</li>
-                    <li>Untuk kategori sekolah, kriteria seperti <b>harga</b>, <b>daya tahan baterai</b>, dan <b>berat
-                            laptop</b> lebih diprioritaskan.</li>
-                </ul>
-            </li>
-            <li>
-                <b>Klasifikasi Cost dan Benefit</b>
-                <ul class="list-disc list-inside ml-5">
-                    <li><b>Benefit:</b> Semakin tinggi nilainya, semakin baik (contoh: RAM, CPU benchmark).</li>
-                    <li><b>Cost:</b> Semakin rendah nilainya, semakin baik (contoh: harga, berat laptop).</li>
-                </ul>
-            </li>
-            <li>
-                <h2>Gaming</h2>
-                <table>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th>Bobot</th>
-                        <th>Jenis</th>
-                    </tr>
-                    <tr>
-                        <td>price</td>
-                        <td>0.15</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>ram</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>cpu_benchmark</td>
-                        <td>0.2</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>gpu_benchmark</td>
-                        <td>0.2</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>battery_size</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>screen_size</td>
-                        <td>0.05</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>refresh_rate</td>
-                        <td>0.05</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>internal_storage</td>
-                        <td>0.05</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>weight</td>
-                        <td>0.05</td>
-                        <td>cost</td>
-                    </tr>
-                </table>
+    <div class="max-w-4xl mx-auto mt-10 bg-white shadow rounded-lg p-8">
+    <h1 class="text-2xl font-bold mb-4 text-gray-800 ">Tentang Website Ini</h1>
+    <p class="mb-3 text-gray-500 ">
+        Website ini dibangun sebagai platform rekomendasi laptop yang membantu pengguna dalam memilih laptop terbaik
+        sesuai kebutuhan mereka, seperti untuk <strong>gaming</strong>, <strong>desain grafis</strong>,
+        <strong>sekolah</strong>, maupun <strong>pekerjaan kantor</strong>.
+    </p>
+    <p class="mb-3 text-gray-500 ">
+        Website ini memberikan rekomendasi berdasarkan metode <strong>SAW (Simple Additive Weighting)</strong>, agar proses pemilihan lebih objektif dan terstruktur.
+    </p>
 
-                <h2>Desain</h2>
-                <table>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th>Bobot</th>
-                        <th>Jenis</th>
-                    </tr>
-                    <tr>
-                        <td>price</td>
-                        <td>0.15</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>ram</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>cpu_benchmark</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>gpu_benchmark</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>screen_size</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>display_type</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>resolution</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>brightness</td>
-                        <td>0.05</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>weight</td>
-                        <td>0.1</td>
-                        <td>cost</td>
-                    </tr>
-                </table>
+    <h2 class="text-xl font-semibold mt-6 mb-2 text-gray-800 ">Tujuan Website</h2>
+    <ul class="list-disc list-inside text-gray-500  mb-4 space-y-1">
+        <li>Membantu pengguna menemukan laptop sesuai kebutuhan dan anggaran.</li>
+        <li>Menyediakan sistem penilaian dan pemeringkatan otomatis.</li>
+        <li>Fitur filtering dan pencarian berdasarkan harga, brand, dan nama laptop.</li>
+    </ul>
 
-                <h2>School</h2>
-                <table>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th>Bobot</th>
-                        <th>Jenis</th>
-                    </tr>
-                    <tr>
-                        <td>price</td>
-                        <td>0.25</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>ram</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>battery_size</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>weight</td>
-                        <td>0.15</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>screen_size</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>cpu_benchmark</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>internal_storage</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                </table>
+    <h2 class="text-xl font-semibold mt-6 mb-2 text-gray-800 ">Cara Kerja Metode SAW</h2>
+    <ol class="list-decimal list-inside text-gray-500  mb-4 space-y-2">
+        <li>
+            <strong>Menentukan Kriteria dan Bobot</strong><br>
+            Setiap kategori memiliki bobot yang berbeda. Contohnya:
+            <ul class="list-disc list-inside ml-5 mt-1">
+                <li>Gaming: CPU, GPU, dan RAM lebih berat bobotnya.</li>
+                <li>Sekolah: Harga, baterai, dan berat laptop lebih diprioritaskan.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Klasifikasi Cost dan Benefit</strong><br>
+            <ul class="list-disc list-inside ml-5">
+                <li><strong>Benefit:</strong> Nilai lebih tinggi lebih baik (RAM, benchmark).</li>
+                <li><strong>Cost:</strong> Nilai lebih rendah lebih baik (harga, berat).</li>
+            </ul>
+        </li>
 
-                <h2>Office</h2>
-                <table>
-                    <tr>
-                        <th>Kriteria</th>
-                        <th>Bobot</th>
-                        <th>Jenis</th>
-                    </tr>
-                    <tr>
-                        <td>price</td>
-                        <td>0.2</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>ram</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>cpu_benchmark</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>battery_size</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>weight</td>
-                        <td>0.1</td>
-                        <td>cost</td>
-                    </tr>
-                    <tr>
-                        <td>screen_size</td>
-                        <td>0.1</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>internal_storage</td>
-                        <td>0.15</td>
-                        <td>benefit</td>
-                    </tr>
-                    <tr>
-                        <td>thickness</td>
-                        <td>0.05</td>
-                        <td>cost</td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <b>Normalisasi Nilai Kriteria</b><br>
-                Nilai setiap laptop dinormalisasi agar dapat dibandingkan secara adil:
-                <ul class="list-disc list-inside ml-5">
-                    <li>Untuk benefit: <code>nilai / nilai maksimum</code></li>
-                    <li>Untuk cost: <code>nilai minimum / nilai</code></li>
-                </ul>
-            </li>
-            <li>
-                <b>Perhitungan Skor Akhir (SAW Score)</b><br>
-                Skor akhir dihitung dengan menjumlahkan hasil normalisasi yang telah dikalikan dengan bobot masing-masing
-                kriteria.
-            </li>
-            <li>
-                <b>Pemeringkatan</b><br>
-                Laptop dengan skor tertinggi akan muncul di urutan teratas sebagai rekomendasi terbaik untuk kategori yang
-                dipilih.
-            </li>
-        </ol>
-        <h2 class="text-xl font-semibold mt-6 mb-2">Fitur Tambahan</h2>
-        <ul class="list-disc list-inside mb-2 space-y-1">
-            <li>Filter berdasarkan harga minimum dan maksimum</li>
-            <li>Sorting berdasarkan nama atau merek</li>
-            <li>Wishlist, agar pengguna dapat menyimpan laptop favorit mereka</li>
-        </ul>
-    </div>
+        <li>
+            <strong>Kriteria & Bobot Kategori</strong><br>
+            <div class="space-y-6">
+                @foreach(['Gaming', 'Desain', 'School', 'Office'] as $kategori)
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700  mt-4">{{ $kategori }}</h3>
+                        <div class="overflow-auto rounded-lg border border-gray-200  mt-2">
+                            <table class="w-full text-sm text-left text-gray-700 ">
+                                <thead class="bg-gray-100  text-gray-700 0">
+                                    <tr>
+                                        <th class="px-4 py-2">Kriteria</th>
+                                        <th class="px-4 py-2">Bobot</th>
+                                        <th class="px-4 py-2">Jenis</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white ">
+                                    @php
+                                        $data = [
+                                            'Gaming' => [
+                                                ['price', '0.15', 'cost'],
+                                                ['ram', '0.15', 'benefit'],
+                                                ['cpu_benchmark', '0.2', 'benefit'],
+                                                ['gpu_benchmark', '0.2', 'benefit'],
+                                                ['battery_size', '0.1', 'benefit'],
+                                                ['screen_size', '0.05', 'benefit'],
+                                                ['refresh_rate', '0.05', 'benefit'],
+                                                ['internal_storage', '0.05', 'benefit'],
+                                                ['weight', '0.05', 'cost'],
+                                            ],
+                                            'Desain' => [
+                                                ['price', '0.15', 'cost'],
+                                                ['ram', '0.15', 'benefit'],
+                                                ['cpu_benchmark', '0.15', 'benefit'],
+                                                ['gpu_benchmark', '0.1', 'benefit'],
+                                                ['screen_size', '0.1', 'benefit'],
+                                                ['display_type', '0.1', 'benefit'],
+                                                ['resolution', '0.1', 'benefit'],
+                                                ['brightness', '0.05', 'benefit'],
+                                                ['weight', '0.1', 'cost'],
+                                            ],
+                                            'School' => [
+                                                ['price', '0.25', 'cost'],
+                                                ['ram', '0.15', 'benefit'],
+                                                ['battery_size', '0.15', 'benefit'],
+                                                ['weight', '0.15', 'cost'],
+                                                ['screen_size', '0.1', 'benefit'],
+                                                ['cpu_benchmark', '0.1', 'benefit'],
+                                                ['internal_storage', '0.1', 'benefit'],
+                                            ],
+                                            'Office' => [
+                                                ['price', '0.2', 'cost'],
+                                                ['ram', '0.15', 'benefit'],
+                                                ['cpu_benchmark', '0.15', 'benefit'],
+                                                ['battery_size', '0.15', 'benefit'],
+                                                ['weight', '0.1', 'cost'],
+                                                ['screen_size', '0.1', 'benefit'],
+                                                ['internal_storage', '0.15', 'benefit'],
+                                                ['thickness', '0.05', 'cost'],
+                                            ],
+                                        ];
+                                    @endphp
+                                    @foreach ($data[$kategori] as $row)
+                                        <tr class="border-t border-gray-200 ">
+                                            <td class="px-4 py-2">{{ $row[0] }}</td>
+                                            <td class="px-4 py-2">{{ $row[1] }}</td>
+                                            <td class="px-4 py-2">{{ $row[2] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </li>
+
+        <li>
+            <strong>Normalisasi Nilai Kriteria</strong><br>
+            <ul class="list-disc list-inside ml-5 mt-1">
+                <li>Benefit: <code>nilai / nilai maksimum</code></li>
+                <li>Cost: <code>nilai minimum / nilai</code></li>
+            </ul>
+        </li>
+        <li>
+            <strong>Perhitungan Skor Akhir</strong><br>
+            Skor dihitung dari jumlah hasil normalisasi dikali bobot.
+        </li>
+        <li>
+            <strong>Pemeringkatan</strong><br>
+            Laptop dengan skor tertinggi berada di urutan teratas sebagai rekomendasi terbaik.
+        </li>
+    </ol>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2 text-gray-800 ">Fitur Tambahan</h2>
+    <ul class="list-disc list-inside text-gray-500  space-y-1">
+        <li>Filter berdasarkan harga minimum dan maksimum</li>
+        <li>Sorting berdasarkan nama atau merek</li>
+        <li>Wishlist untuk menyimpan laptop favorit</li>
+    </ul>
+</div>
+
 @endsection

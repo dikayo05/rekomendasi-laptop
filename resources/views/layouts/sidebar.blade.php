@@ -1,14 +1,5 @@
 <aside class="w-64 bg-white shadow rounded-lg p-6 mr-8 hidden md:block h-fit">
     <h4 class="font-bold text-lg mb-4">Filter</h4>
-    {{-- <ul class="space-y-2 mb-6">
-        <li>
-            <a href="{{ route('user') }}"
-                class="block px-2 py-1 rounded hover:bg-blue-100 {{ request()->routeIs('user') ? 'font-semibold text-blue-600' : '' }}">
-                Daftar Laptop
-            </a>
-        </li>
-    </ul> --}}
-
     {{-- Form Sortir --}}
     <form method="GET" action="{{ route('user') }}">
         <div class="mb-4">
