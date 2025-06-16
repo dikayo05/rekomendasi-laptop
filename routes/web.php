@@ -67,3 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/{laptop}', [UserController::class, 'addWishlist'])->name('wishlist.add');
     Route::delete('/wishlist/{laptop}', [UserController::class, 'removeWishlist'])->name('wishlist.remove');
 });
+
+// Route untuk fitur banding laptop (compare)
+Route::post('/compare/add', [UserController::class, 'addToCompare'])->name('laptop.compare.add');
+Route::post('/compare/remove', [UserController::class, 'removeFromCompare'])->name('laptop.compare.remove');
+Route::post('/compare/reset', [UserController::class, 'resetCompare'])->name('laptop.compare.reset');
+Route::get('/compare', [UserController::class, 'compare'])->name('laptop.compare');
+Route::post('/compare', [UserController::class, 'compareShow'])->name('laptop.compare.show');

@@ -35,10 +35,6 @@
                 <input type="number" name="price" class="w-full border rounded px-3 py-2" value="{{ $laptop->price }}">
             </div>
             <div class="mb-4">
-                <label class="block mb-1">Tipe</label>
-                <input type="text" name="type" class="w-full border rounded px-3 py-2" value="{{ $laptop->type }}">
-            </div>
-            <div class="mb-4">
                 <label class="block mb-1">Berat</label>
                 <input type="number" name="weight" class="w-full border rounded px-3 py-2" value="{{ $laptop->weight }}">
             </div>

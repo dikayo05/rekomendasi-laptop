@@ -275,4 +275,53 @@ class UserController extends Controller
 
         return view('laptop.show', compact('laptop'));
     }
+
+    public function addToCompare(Request $request)
+    {
+        $id = $request->input('laptop_id');
+        $compare = session('compare_laptops', []);
+        if (!in_array($id, $compare)) {
+            $compare[] = $id;
+        }
+        session(['compare_laptops' => $compare]);
+        return back()->with('success', 'Laptop ditambahkan ke daftar banding.');
+    }
+
+    public function removeFromCompare(Request $request)
+    {
+        $id = $request->input('laptop_id');
+        $compare = session('compare_laptops', []);
+        $compare = array_diff($compare, [$id]);
+        session(['compare_laptops' => $compare]);
+        return back()->with('success', 'Laptop dihapus dari daftar banding.');
+    }
+
+    public function compare()
+    {
+        $laptops = Laptop::orderBy('name')->get();
+        $compareIds = session('compare_laptops', []);
+        $compareLaptops = Laptop::whereIn('id', $compareIds)->get();
+        return view('laptop.compare', compact('laptops', 'compareLaptops', 'compareIds'));
+    }
+
+    public function compareShow(Request $request)
+    {
+        // Hanya tampilkan bandingkan, tidak perlu update session
+        $compareIds = session('compare_laptops', []);
+        $compareLaptops = Laptop::whereIn('id', $compareIds)->get();
+        $laptops = Laptop::orderBy('name')->get();
+        return view('laptop.compare', compact('laptops', 'compareLaptops', 'compareIds'));
+    }
+
+    public function comparePost(Request $request)
+    {
+        $ids = $request->input('laptops', []);
+        return redirect()->route('laptop.compare', ['laptops' => $ids]);
+    }
+
+    public function resetCompare()
+    {
+        session()->forget('compare_laptops');
+        return back()->with('success', 'Daftar bandingkan telah direset.');
+    }
 }

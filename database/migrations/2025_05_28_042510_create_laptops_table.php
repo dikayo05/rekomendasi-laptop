@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('price')->nullable();
 
             // desain
-            $table->string('type')->nullable();
             $table->integer('weight')->nullable();
             $table->integer('thickness')->nullable();
 

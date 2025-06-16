@@ -18,7 +18,6 @@
 
             <ul class="mb-4 text-gray-700 space-y-1">
                 <li><b>Harga:</b> Rp{{ number_format($laptop->price, 0, ',', '.') }}</li>
-                <li><b>Tipe:</b> {{ $laptop->type }}</li>
                 <li><b>Berat:</b> {{ $laptop->weight }} g</li>
                 <li><b>Ketebalan:</b> {{ $laptop->thickness }} mm</li>
                 <li><b>Ukuran Layar:</b> {{ $laptop->screen_size }}</li>

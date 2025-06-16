@@ -14,7 +14,6 @@ class LaptopSeeder extends Seeder
     public function run(): void
     {
         $brands = ['Asus', 'Acer', 'Lenovo', 'HP', 'Dell', 'MSI', 'Apple'];
-        $types = ['Ultrabook', 'Gaming', 'Convertible', 'Business', 'Standard'];
         $displayTypes = ['IPS', 'OLED', 'TN', 'VA'];
         $storageTypes = ['SSD', 'HDD', 'SSD+HDD'];
         $cpus = ['Intel i5', 'Intel i7', 'AMD Ryzen 5', 'AMD Ryzen 7', 'Apple M1'];
@@ -28,7 +27,6 @@ class LaptopSeeder extends Seeder
                 'price' => rand(5000000, 35000000),
 
                 // desain
-                'type' => $types[array_rand($types)],
                 'weight' => rand(1000, 2500),
                 'thickness' => rand(12, 30),
 
