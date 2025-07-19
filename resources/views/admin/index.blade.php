@@ -13,7 +13,7 @@
             <div class="max-w-6xl mx-auto mb-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="bg-blue-100 border border-blue-300 rounded-lg p-6 flex items-center shadow">
                     <div
-                        class="flex-shrink-0 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                        class="flex-shrink-0 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center mr-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 7v4a1 1 0 001 1h3m10 0h3a1 1 0 001-1V7m-1-4H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z" />

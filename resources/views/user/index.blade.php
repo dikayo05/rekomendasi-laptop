@@ -5,59 +5,18 @@
 
         {{-- Siderbar --}}
         @include('layouts.sidebar')
-
+        
+        
         <div class="flex-1">
-            <div class="max-w-md mx-auto mt-10">
-                <h2 class="text-2xl font-bold mb-4">Homepage</h2>
-                <p>Selamat datang {{ Auth::check() ? Auth::user()->name : ':)' }}</p>
-            </div>
+            {{-- carousel --}}
+            @include('layouts.carousel')
 
-            {{-- Dropdown Kategori --}}
-            <div class="max-w-4xl mx-auto mt-6 mb-6">
-                <form method="GET" action="{{ route('user') }}">
-                    {{-- Pertahankan filter pencarian dan harga --}}
-                    <input type="hidden" name="q" value="{{ request('q') }}">
-                    <input type="hidden" name="min_price" value="{{ request('min_price') }}">
-                    <input type="hidden" name="max_price" value="{{ request('max_price') }}">
-                    <input type="hidden" name="sort" value="{{ request('sort') }}">
-
-                    <div class="flex items-center gap-2">
-                        <label class="font-semibold">Kategori:</label>
-
-                        <button id="dropdownCategoryButton" data-dropdown-toggle="dropdownCategory"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            {{ ucfirst(request('category', $category ?? 'gaming')) }}
-                            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Dropdown menu -->
-                    <div id="dropdownCategory"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownCategoryButton">
-                            @foreach (['gaming', 'desain', 'school', 'office'] as $cat)
-                                <li>
-                                    <button type="submit" name="category" value="{{ $cat }}"
-                                        class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ request('category', $category ?? 'gaming') === $cat ? 'font-semibold' : '' }}">
-                                        {{ ucfirst($cat) }}
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </form>
-            </div>
+            
 
 
             {{-- Daftar Laptop --}}
             <div class="max-w-4xl mx-auto mt-10">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-semibold">Daftar Laptop</h3>
                     @auth
                         <a href="{{ route('wishlist.index') }}"
                             class="bg-pink-500 text-black px-4 py-2 rounded hover:bg-pink-600">
